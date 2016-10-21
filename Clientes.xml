@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_101" class="java.beans.XMLDecoder">
+ <object class="empresajava.ListaCliente" id="ListaCliente0">
+  <void property="lista">
+   <void method="add">
+    <object class="empresajava.Cliente">
+     <void property="apellidos">
+      <string>Ros</string>
+     </void>
+     <void property="nombre">
+      <string>Sheila</string>
+     </void>
+     <void property="telefono">
+      <int>663734176</int>
+     </void>
+     <void property="vip">
+      <boolean>true</boolean>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>
