@@ -8,6 +8,7 @@ public class ListaCliente {
     public ListaCliente(){
 	lista = new ArrayList<>();
     }
+    
     public ArrayList<Cliente> getLista() {
 	return lista;
     }

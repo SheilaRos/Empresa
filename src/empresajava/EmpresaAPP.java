@@ -53,38 +53,28 @@ public class EmpresaAPP {
         System.out.println("[8]~ Salir.");
     }
     
-    public static void newCliente(){
-        int telefono = pedirTelefono("Introduce el teléfono:");
-        if(telefono==0){
-            System.out.println("Ya existe un usuario con este teléfono.");
-        }else{
-            String name = pedirCadenaNoVacia("Introduce el nombre del cliente:");
-            String apellidos = pedirCadenaNoVacia("Introduce los apellidos del cliente:");
-            boolean vip= pedirBoolean();
-            Cliente g = new Cliente(name, apellidos, telefono, vip);
-            misClientes.altaCliente(g);
-            miFicheroCliente.grabar(misClientes);
-            System.out.println("Cliente dado de alta.");
-        }
-    }
+
     public static int pedirTelefono(String msg){
 	int entero;
         String enteroString;
 	do{
             entero=EntradaDatos.pedirEntero(msg);
-            if(entero<0){
+            if(entero<=0){
 		System.out.println("No se puede dejar en blanco.");
             }
             enteroString = String.valueOf(entero);
-            if(enteroString.length()<9){
+            if(enteroString.length()!=9){
                 System.out.println("El telefono ha de tener 9 carácteres.");
             }
-	}while(entero<0 && enteroString.length()<9);
-       
-        if(misClientes.obtenerClienteTelefono(entero)!=null){
-            return 0;
-        }
+	}while(entero<=0 && enteroString.length()!=9);
+    
 	return entero;
+    }
+    public static Boolean comprobarTelefono(int telefono){
+        if(misClientes.obtenerClienteTelefono(telefono)!=null){
+            return false; //hay un cliente con ese telefono
+        }
+        return true; //no hay un cliente con ese telefono
     }
     
      public static String pedirCadenaNoVacia(String msg){
@@ -112,32 +102,70 @@ public class EmpresaAPP {
 	}while(!respuesta.equalsIgnoreCase("si") && !respuesta.equalsIgnoreCase("no"));
 	return enPropiedad;
     }
-     
-     
-    public static Cliente pedirTelefonoCliente(String msg){
-	int entero;
+    public static void newCliente(){
+        int telefono = pedirTelefono("Introduce el teléfono:");
+        boolean comprobarT = comprobarTelefono(telefono);
+        if(comprobarT==false){
+            System.out.println("Ya existe un usuario con este teléfono.");
+        }else{
+            newCliente(telefono);
+        }
+    }
+    public static void newCliente(int telefono){
+            String name = pedirCadenaNoVacia("Introduce el nombre del cliente:");
+            String apellidos = pedirCadenaNoVacia("Introduce los apellidos del cliente:");
+            boolean vip= pedirBoolean();
+            Cliente g = new Cliente(name, apellidos, telefono, vip);
+            misClientes.altaCliente(g);
+            miFicheroCliente.grabar(misClientes);
+            System.out.println("Cliente dado de alta.");
+    }
+    
+    public static int numpresupuesto(String msg){
+        int entero;
+        boolean comprobar=false;
 	do{
             entero=EntradaDatos.pedirEntero(msg);
-            if(entero<0){
-		System.out.println("No se puede dejar en blanco");
+            if(entero<=0){
+		System.out.println("No se puede dejar en blanco.");
             }
-	}while(entero<0);
-       Cliente g = misClientes.obtenerClienteTelefono(entero);
-	if(g!=null){
-            return g; 
-        }
-        return null;
+            else{
+                comprobar=comprobarPresupuesto(entero);
+                if(comprobar==false){
+                    System.out.println("El número de presupuesto ya existe.");
+                }
+            }
+	}while(entero<=0 && comprobar==false);
+	return entero;
     }
+    public static Boolean comprobarPresupuesto(int num){
+        Presupuesto p = null;
+        for (Cliente c : misClientes.getLista()) {
+            p = c.getLista().obtenerPresupuestoPorNum(num);
+        }
+        if(p==null){
+            return false;
+        }
+        return true;
+    }
+    
+
     
      public static void nuevoPresupuesto(){
         Cliente g = null;
+        int telefono;
+        boolean comprobar;
         do{
-            g = pedirTelefonoCliente("Introduce el teléfono del cliente:");
-            if(g==null){
-                newCliente();
+            telefono = pedirTelefono("Introduce el teléfono del cliente:");
+            comprobar = comprobarTelefono(telefono);
+            if(comprobar){
+                newCliente(telefono);
+                g = misClientes.obtenerClienteTelefono(telefono);
             }
-           
          }while(g==null);
+        
+        int numPresupuesto = numpresupuesto("Introduce el número del presupuesto:");
+        String concepto = pedirCadenaNoVacia("Introduce el concepto:");
         
      }
 }

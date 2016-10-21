@@ -14,4 +14,15 @@ public class ListaPresupuestos {
     public void setLista(ArrayList<Presupuesto> lista) {
 	this.lista = lista;
     }
+     public Presupuesto obtenerPresupuestoPorNum(int num){
+	for (Presupuesto c : lista){
+            if(c.getNumpresupuesto()==num){
+		return c;
+            }
+	}	
+        return null;
+    }
+    public void altaPresupuesto(Presupuesto c){
+		lista.add(c);
+	}
 }

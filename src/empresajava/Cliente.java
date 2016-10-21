@@ -15,6 +15,14 @@ public class Cliente {
         this.vip = vip;
         lista = new ListaPresupuestos();
     }
+
+    public ListaPresupuestos getLista() {
+        return lista;
+    }
+
+    public void setLista(ListaPresupuestos lista) {
+        this.lista = lista;
+    }
     
     public String getNombre() {
         return nombre;
