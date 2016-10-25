@@ -1,10 +1,14 @@
 package empresajava;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
     private String nombre;
     private String apellidos;
     private int telefono;
     private boolean vip;
-    private ListaPresupuestos lista;
+    private ListaPresupuestos listaPresupuesto;
     
     public Cliente(){
     }
@@ -13,16 +17,18 @@ public class Cliente {
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.vip = vip;
-        lista = new ListaPresupuestos();
+        listaPresupuesto = new ListaPresupuestos();
     }
 
-    public ListaPresupuestos getLista() {
-        return lista;
+    public ListaPresupuestos getListaPresupuesto() {
+        return listaPresupuesto;
     }
 
-    public void setLista(ListaPresupuestos lista) {
-        this.lista = lista;
+    public void setListaPresupuesto(ListaPresupuestos listaPresupuesto) {
+        this.listaPresupuesto = listaPresupuesto;
     }
+
+
     
     public String getNombre() {
         return nombre;
@@ -55,5 +61,10 @@ public class Cliente {
     public void setVip(boolean vip) {
         this.vip = vip;
     }
-   
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", vip=" + vip + ", listaPresupuesto=" + listaPresupuesto + '}';
+    }
+
 }

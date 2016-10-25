@@ -1,10 +1,14 @@
 package empresajava;
-public class Presupuesto {
+public class Presupuesto{
     private int numpresupuesto;
     private String concepto;
     private double preciototal;
     private String estado;
 
+    public Presupuesto() {
+        
+    }
+    
     public Presupuesto(int numpresupuesto, String concepto, double preciototal, String estado) {
         this.numpresupuesto = numpresupuesto;
         this.concepto = concepto;
@@ -42,6 +46,11 @@ public class Presupuesto {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Presupuesto{" + "numpresupuesto=" + numpresupuesto + ", concepto=" + concepto + ", preciototal=" + preciototal + ", estado=" + estado + '}';
     }
     
     

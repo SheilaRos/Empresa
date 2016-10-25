@@ -3,11 +3,8 @@ package empresajava;
 import java.util.ArrayList;
 
 public class ListaCliente {
-    private ArrayList<Cliente> lista;
+    private ArrayList<Cliente> lista = new ArrayList<>();
     
-    public ListaCliente(){
-	lista = new ArrayList<>();
-    }
     
     public ArrayList<Cliente> getLista() {
 	return lista;

@@ -5,8 +5,7 @@ public class EmpresaAPP {
     private static Fichero miFicheroCliente;
     public static void main(String[] args) {	 
             miFicheroCliente =new Fichero("Clientes.xml");
-            misClientes=(ListaCliente) miFicheroCliente.leer();	 
-            
+            misClientes=(ListaCliente) miFicheroCliente.leer();
             if(misClientes == null){
 		misClientes = new ListaCliente();
             }
@@ -21,13 +20,15 @@ public class EmpresaAPP {
                             newCliente();
 			break;
 			case 2:
-			 		
+                            nuevoPresupuesto();
 			break;
 			case 3:
+                            presupuestosPorAceptaroRechazar();
 			break;
 			case 4:
 			break;
                         case 5:
+                            presupuestosRechazados();
 			break;
                         case 6:
 			break;
@@ -52,8 +53,6 @@ public class EmpresaAPP {
         System.out.println("[7]~ Cambiar el estado de un presupuesto.");
         System.out.println("[8]~ Salir.");
     }
-    
-
     public static int pedirTelefono(String msg){
 	int entero;
         String enteroString;
@@ -66,7 +65,7 @@ public class EmpresaAPP {
             if(enteroString.length()!=9){
                 System.out.println("El telefono ha de tener 9 carácteres.");
             }
-	}while(entero<=0 && enteroString.length()!=9);
+	}while(entero<=0 || enteroString.length()!=9);
     
 	return entero;
     }
@@ -76,8 +75,7 @@ public class EmpresaAPP {
         }
         return true; //no hay un cliente con ese telefono
     }
-    
-     public static String pedirCadenaNoVacia(String msg){
+    public static String pedirCadenaNoVacia(String msg){
         String cadena;
 	do{
             cadena=EntradaDatos.pedirCadena(msg);
@@ -87,7 +85,7 @@ public class EmpresaAPP {
 	}while(cadena.equals(""));
 	return cadena;
     }
-     public static boolean pedirBoolean(){
+    public static boolean pedirBoolean(){
 	boolean enPropiedad=false;
 	String respuesta=pedirCadenaNoVacia("¿Es vip?[Si/No]");
 	do{
@@ -120,39 +118,41 @@ public class EmpresaAPP {
             miFicheroCliente.grabar(misClientes);
             System.out.println("Cliente dado de alta.");
     }
-    
     public static int numpresupuesto(String msg){
         int entero;
         boolean comprobar=false;
 	do{
             entero=EntradaDatos.pedirEntero(msg);
-            if(entero<=0){
+            if(entero<0){
 		System.out.println("No se puede dejar en blanco.");
             }
-            else{
+           else{
                 comprobar=comprobarPresupuesto(entero);
-                if(comprobar==false){
+                if(!comprobar){
                     System.out.println("El número de presupuesto ya existe.");
                 }
             }
-	}while(entero<=0 && comprobar==false);
+	}while(entero<0 || !comprobar);
 	return entero;
     }
     public static Boolean comprobarPresupuesto(int num){
-        Presupuesto p = null;
         for (Cliente c : misClientes.getLista()) {
-            p = c.getLista().obtenerPresupuestoPorNum(num);
-        }
-        if(p==null){
-            return false;
+            for (Presupuesto p: c.getListaPresupuesto().getLista()){
+                if(p.getNumpresupuesto()==num){
+                    return false;
+                }
+            }
         }
         return true;
     }
-   
-    
-
-    
-     public static void nuevoPresupuesto(){
+    public static String pedirEstado(){
+       String estado="";
+       do{
+          estado=  pedirCadenaNoVacia("Introduca el estado del presupuesto:");
+       }while(!estado.equalsIgnoreCase("aceptado") && !estado.equalsIgnoreCase("rechazado") && !estado.equalsIgnoreCase("pendiente"));
+       return estado;
+    }
+    public static void nuevoPresupuesto(){
         Cliente g = null;
         int telefono;
         boolean comprobar;
@@ -162,11 +162,46 @@ public class EmpresaAPP {
             if(comprobar){
                 newCliente(telefono);
                 g = misClientes.obtenerClienteTelefono(telefono);
+            }else{
+                g = misClientes.obtenerClienteTelefono(telefono);
             }
          }while(g==null);
         
         int numPresupuesto = numpresupuesto("Introduce el número del presupuesto:");
         String concepto = pedirCadenaNoVacia("Introduce el concepto:");
-        
+        String estado = pedirEstado();
+        double precioTotal=0.00; //Falta arreglar
+        Presupuesto p = new Presupuesto(numPresupuesto, concepto, precioTotal, estado);
+        g.getListaPresupuesto().altaPresupuesto(p);
+        miFicheroCliente.grabar(misClientes);
+        System.out.println("Presupuesto dado de alta.");
      }
+    public static void presupuestosPorAceptaroRechazar(){
+         Presupuesto p=null;
+         for (Cliente c : misClientes.getLista()) {
+            p = c.getListaPresupuesto().obtenerPresupuestoPorEstado("pendiente");
+            if(p!=null){
+                System.out.println(c.getNombre()+": "+ p);
+            }
+        }
+     }
+     public static void presupuestosRechazados(){
+         Presupuesto p=null;
+         for (Cliente c : misClientes.getLista()) {
+            p = c.getListaPresupuesto().obtenerPresupuestoPorEstado("rechazado");
+            if(p!=null){
+                System.out.println(p);
+            }
+        }
+     }
+
+//    public static void listaClientesTotalP(){
+//         
+//     }
+//    public static void cambiarEstadoPresupuesto(){
+//         
+//     }
+//    public static void presupuestosClienteX(){
+//    }
+
 }

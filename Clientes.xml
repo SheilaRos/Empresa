@@ -5,16 +5,45 @@
    <void method="add">
     <object class="empresajava.Cliente">
      <void property="apellidos">
-      <string>Ros</string>
+      <string>ros</string>
+     </void>
+     <void property="listaPresupuesto">
+      <object class="empresajava.ListaPresupuestos" id="ListaPresupuestos0">
+       <void property="lista">
+        <void method="add">
+         <object class="empresajava.Presupuesto">
+          <void property="concepto">
+           <string>pepe</string>
+          </void>
+          <void property="estado">
+           <string>pendiente</string>
+          </void>
+          <void property="numpresupuesto">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="empresajava.Presupuesto">
+          <void property="concepto">
+           <string>asd</string>
+          </void>
+          <void property="estado">
+           <string>pendiente</string>
+          </void>
+          <void property="numpresupuesto">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </void>
+      </object>
      </void>
      <void property="nombre">
-      <string>Sheila</string>
+      <string>sheila</string>
      </void>
      <void property="telefono">
-      <int>663734176</int>
-     </void>
-     <void property="vip">
-      <boolean>true</boolean>
+      <int>123456789</int>
      </void>
     </object>
    </void>
