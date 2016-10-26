@@ -64,7 +64,13 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", vip=" + vip + ", listaPresupuesto=" + listaPresupuesto + '}';
+        String respuesta = "Cliente " + "Nombre=" + nombre + ", Apellidos=" + apellidos + ", telefono=" + telefono + ", vip= ";
+        if(vip){
+            respuesta= respuesta + "es Vip, Presupuestos= ";
+        }else{
+            respuesta= respuesta + "no es Vip, Presupuestos= ";
+        }
+       return respuesta;
     }
 
 }

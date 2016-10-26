@@ -17,7 +17,6 @@ public class ListaPresupuestos {
      public Presupuesto obtenerPresupuestoPorNum(int num){
 	for (Presupuesto c : lista){
             if(c.getNumpresupuesto()==num){
-                System.out.println(c);
 		return c;
             }
 	}	

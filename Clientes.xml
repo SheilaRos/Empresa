@@ -47,6 +47,22 @@
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="empresajava.Cliente">
+     <void property="apellidos">
+      <string>cosa cosa</string>
+     </void>
+     <void property="listaPresupuesto">
+      <object class="empresajava.ListaPresupuestos"/>
+     </void>
+     <void property="nombre">
+      <string>cosa</string>
+     </void>
+     <void property="telefono">
+      <int>147258369</int>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
 </java>

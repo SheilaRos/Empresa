@@ -31,8 +31,10 @@ public class EmpresaAPP {
                             presupuestosRechazados();
 			break;
                         case 6:
+                            listaClientesTotalP();
 			break;
                         case 7:
+                            cambiarEstadoPresupuesto();
 			break;
 			case 8:
                             System.out.println("Hasta luego :D");
@@ -40,8 +42,7 @@ public class EmpresaAPP {
 			default: System.out.println("opción incorrecta.");
                     }
 		 }while(opcion!=8);
-    }
-    
+    }   
     public static void menu(){
         System.out.println("<~~ Menú ~~>");
         System.out.println("[1]~ Alta.");
@@ -136,14 +137,24 @@ public class EmpresaAPP {
 	return entero;
     }
     public static Boolean comprobarPresupuesto(int num){
-        for (Cliente c : misClientes.getLista()) {
-            for (Presupuesto p: c.getListaPresupuesto().getLista()){
-                if(p.getNumpresupuesto()==num){
-                    return false;
-                }
+         Presupuesto p=null;
+         for (Cliente c : misClientes.getLista()) {
+            p = c.getListaPresupuesto().obtenerPresupuestoPorNum(num);
+            if(p!=null){
+                return false;
             }
         }
-        return true;
+         return true;
+    }
+    public static double pedirDoubleNoVacio(String msg){
+	double Double;
+	do{
+            Double=EntradaDatos.pedirDouble(msg);
+            if(Double<0){
+		System.out.println("No se puede dejar en blanco");
+            }
+	}while(Double<0);
+            return Double;
     }
     public static String pedirEstado(){
        String estado="";
@@ -170,38 +181,87 @@ public class EmpresaAPP {
         int numPresupuesto = numpresupuesto("Introduce el número del presupuesto:");
         String concepto = pedirCadenaNoVacia("Introduce el concepto:");
         String estado = pedirEstado();
-        double precioTotal=0.00; //Falta arreglar
+        double precioTotal= pedirDoubleNoVacio("Introduce el precio.");
         Presupuesto p = new Presupuesto(numPresupuesto, concepto, precioTotal, estado);
         g.getListaPresupuesto().altaPresupuesto(p);
         miFicheroCliente.grabar(misClientes);
         System.out.println("Presupuesto dado de alta.");
      }
+    public static String precioDescuentoIVA(boolean vip, double precio){
+       String texto="";
+       double precioDescuento;
+       double precioIVA;
+           if(vip==true){
+               precioDescuento= precio*0.95;
+               precioIVA = precioDescuento*1.21;
+               texto=" el precio con descuento es de "+precioDescuento+" y el precio con IVA es de "+precioIVA;
+               return texto;
+           }else{
+               precioIVA = precio*1.21;
+               texto=" el precio con IVA es de "+precioIVA;
+               return texto;
+           }
+    }
     public static void presupuestosPorAceptaroRechazar(){
+        boolean vip=false;
+        String texto="";
          Presupuesto p=null;
          for (Cliente c : misClientes.getLista()) {
             p = c.getListaPresupuesto().obtenerPresupuestoPorEstado("pendiente");
             if(p!=null){
-                System.out.println(c.getNombre()+": "+ p);
+                vip=c.isVip();
+                texto=precioDescuentoIVA(vip, p.getPreciototal());
+                System.out.println(c.getNombre()+": "+ p +texto);
             }
         }
      }
-     public static void presupuestosRechazados(){
+    public static void presupuestosRechazados(){
+         boolean vip=false;
+        String texto="";
          Presupuesto p=null;
          for (Cliente c : misClientes.getLista()) {
             p = c.getListaPresupuesto().obtenerPresupuestoPorEstado("rechazado");
             if(p!=null){
-                System.out.println(p);
+                vip=c.isVip();
+                texto=precioDescuentoIVA(vip, p.getPreciototal());
+                System.out.println(c.getNombre()+": "+ p +texto);
             }
         }
      }
-
-//    public static void listaClientesTotalP(){
-//         
-//     }
-//    public static void cambiarEstadoPresupuesto(){
-//         
-//     }
-//    public static void presupuestosClienteX(){
-//    }
-
+    public static void listaClientesTotalP(){
+        boolean vip=false;
+        String texto="";
+         for (Cliente c : misClientes.getLista()) {
+             System.out.println(c);
+             vip=c.isVip();
+            for (Presupuesto p: c.getListaPresupuesto().getLista()){
+                texto = precioDescuentoIVA(vip, p.getPreciototal());
+                System.out.println(p+texto);
+            }
+        }
+     }
+    public static void cambiarEstadoPresupuesto(){
+      int num = 0;
+      Presupuesto presupuesto = null;
+      Cliente cliente = null;
+      boolean comprobar = true;
+      do{
+          num = EntradaDatos.pedirEntero("Introduce el número de presupuesto:");
+      }while(num==0);
+       comprobar=comprobarPresupuesto(num);
+        if(comprobar){
+            System.out.println("El número de presupuesto no existe");
+        }else{
+           for(Cliente c: misClientes.getLista()){
+              presupuesto=c.getListaPresupuesto().obtenerPresupuestoPorNum(num);
+              if(presupuesto!=null){
+                cliente=c;
+              }
+           }   
+           
+        }
+    }
+    public static void presupuestosClienteX(){
+        
+    }
 }
