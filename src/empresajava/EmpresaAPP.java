@@ -254,15 +254,16 @@ public class EmpresaAPP {
             System.out.println("El número de presupuesto no existe");
         }else{
            for(Cliente c: misClientes.getLista()){
-              presupuesto=c.getListaPresupuesto().obtenerPresupuestoPorNum(num);
-              if(presupuesto!=null){
-                cliente=c;
+              if(c.getListaPresupuesto().obtenerPresupuestoPorNum(num)!=null){
+                  cliente=c;
+                  presupuesto=c.getListaPresupuesto().obtenerPresupuestoPorNum(num);
               }
            }
           String estado=pedirEstado();
           presupuesto.setEstado(estado);
           miFicheroCliente.grabar(misClientes);
           System.out.println("Presupuesto modificado");
+
         }
     }
     public static void presupuestosClienteX(){

@@ -5,7 +5,7 @@
    <void method="add">
     <object class="empresajava.Cliente">
      <void property="apellidos">
-      <string>cosa 1</string>
+      <string>preuba</string>
      </void>
      <void property="listaPresupuesto">
       <object class="empresajava.ListaPresupuestos" id="ListaPresupuestos0">
@@ -13,7 +13,42 @@
         <void method="add">
          <object class="empresajava.Presupuesto">
           <void property="concepto">
-           <string>num1</string>
+           <string>cosa</string>
+          </void>
+          <void property="estado">
+           <string>rechazado</string>
+          </void>
+          <void property="numpresupuesto">
+           <int>2</int>
+          </void>
+          <void property="preciototal">
+           <double>8.0</double>
+          </void>
+         </object>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="nombre">
+      <string>prueba 1</string>
+     </void>
+     <void property="telefono">
+      <int>123456789</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="empresajava.Cliente">
+     <void property="apellidos">
+      <string>r</string>
+     </void>
+     <void property="listaPresupuesto">
+      <object class="empresajava.ListaPresupuestos" id="ListaPresupuestos1">
+       <void property="lista">
+        <void method="add">
+         <object class="empresajava.Presupuesto">
+          <void property="concepto">
+           <string>asdasdasd</string>
           </void>
           <void property="estado">
            <string>pendiente</string>
@@ -22,7 +57,7 @@
            <int>1</int>
           </void>
           <void property="preciototal">
-           <double>5000.0</double>
+           <double>5800.0</double>
           </void>
          </object>
         </void>
@@ -30,48 +65,13 @@
       </object>
      </void>
      <void property="nombre">
-      <string>cosa</string>
+      <string>sheila</string>
      </void>
      <void property="telefono">
-      <int>123456789</int>
+      <int>987654321</int>
      </void>
      <void property="vip">
       <boolean>true</boolean>
-     </void>
-    </object>
-   </void>
-   <void method="add">
-    <object class="empresajava.Cliente">
-     <void property="apellidos">
-      <string>cosa 2</string>
-     </void>
-     <void property="listaPresupuesto">
-      <object class="empresajava.ListaPresupuestos" id="ListaPresupuestos1">
-       <void property="lista">
-        <void method="add">
-         <object class="empresajava.Presupuesto">
-          <void property="concepto">
-           <string>cosa2</string>
-          </void>
-          <void property="estado">
-           <string>aceptado</string>
-          </void>
-          <void property="numpresupuesto">
-           <int>2</int>
-          </void>
-          <void property="preciototal">
-           <double>4000.0</double>
-          </void>
-         </object>
-        </void>
-       </void>
-      </object>
-     </void>
-     <void property="nombre">
-      <string>cosa 2</string>
-     </void>
-     <void property="telefono">
-      <int>789456123</int>
      </void>
     </object>
    </void>
