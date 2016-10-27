@@ -26,6 +26,7 @@ public class EmpresaAPP {
                             presupuestosPorAceptaroRechazar();
 			break;
 			case 4:
+                            presupuestosClienteX();
 			break;
                         case 5:
                             presupuestosRechazados();
@@ -211,7 +212,7 @@ public class EmpresaAPP {
             if(p!=null){
                 vip=c.isVip();
                 texto=precioDescuentoIVA(vip, p.getPreciototal());
-                System.out.println(c.getNombre()+": "+ p +texto);
+                System.out.println(c.getNombre()+" "+c.getApellidos()+": "+ p +texto);
             }
         }
      }
@@ -224,7 +225,7 @@ public class EmpresaAPP {
             if(p!=null){
                 vip=c.isVip();
                 texto=precioDescuentoIVA(vip, p.getPreciototal());
-                System.out.println(c.getNombre()+": "+ p +texto);
+                System.out.println(c.getNombre()+" "+c.getApellidos()+": "+ p +texto);
             }
         }
      }
@@ -241,13 +242,13 @@ public class EmpresaAPP {
         }
      }
     public static void cambiarEstadoPresupuesto(){
-      int num = 0;
+      int num = -1;
       Presupuesto presupuesto = null;
       Cliente cliente = null;
       boolean comprobar = true;
       do{
           num = EntradaDatos.pedirEntero("Introduce el número de presupuesto:");
-      }while(num==0);
+      }while(num<0);
        comprobar=comprobarPresupuesto(num);
         if(comprobar){
             System.out.println("El número de presupuesto no existe");
@@ -257,11 +258,30 @@ public class EmpresaAPP {
               if(presupuesto!=null){
                 cliente=c;
               }
-           }   
-           
+           }
+          String estado=pedirEstado();
+          presupuesto.setEstado(estado);
+          miFicheroCliente.grabar(misClientes);
+          System.out.println("Presupuesto modificado");
         }
     }
     public static void presupuestosClienteX(){
-        
+        int telefono=pedirTelefono("Introduce el teléfono");
+        boolean comprobar = comprobarTelefono(telefono);
+        Cliente c=null;
+        String texto ="";
+        boolean vip = false;
+        if(comprobar){
+            System.out.println("No hay ningún cliente con ese teléfono.");
+        }else{
+            c = misClientes.obtenerClienteTelefono(telefono);
+            System.out.println(c);
+            vip = c.isVip();
+            for(Presupuesto p: c.getListaPresupuesto().getLista()){
+                texto=precioDescuentoIVA(vip, p.getPreciototal());
+                System.out.println(p+texto);
+            }
+            
+        }
     }
 }

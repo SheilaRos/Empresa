@@ -66,9 +66,9 @@ public class Cliente {
     public String toString() {
         String respuesta = "Cliente " + "Nombre=" + nombre + ", Apellidos=" + apellidos + ", telefono=" + telefono + ", vip= ";
         if(vip){
-            respuesta= respuesta + "es Vip, Presupuestos= ";
+            respuesta= respuesta + "es Vip";
         }else{
-            respuesta= respuesta + "no es Vip, Presupuestos= ";
+            respuesta= respuesta + "no es Vip";
         }
        return respuesta;
     }

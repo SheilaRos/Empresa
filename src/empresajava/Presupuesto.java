@@ -50,6 +50,6 @@ public class Presupuesto{
 
     @Override
     public String toString() {
-        return "Presupuesto numero=" + numpresupuesto + ", concepto=" + concepto + ", precio=" + preciototal + ", estado=" + estado;
+        return "    Presupuesto numero=" + numpresupuesto + ", concepto=" + concepto + ", precio=" + preciototal + ", estado=" + estado;
     }
 }
