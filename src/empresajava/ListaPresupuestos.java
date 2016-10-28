@@ -22,14 +22,6 @@ public class ListaPresupuestos {
 	}	
         return null;
     }
-     public Presupuesto obtenerPresupuestoPorEstado(String estado){
-	for (Presupuesto c : lista){
-            if(c.getEstado().equalsIgnoreCase(estado)){
-		return c;
-            }
-	}	
-        return null;
-    }
     public void altaPresupuesto(Presupuesto p){
 	lista.add(p);
     }

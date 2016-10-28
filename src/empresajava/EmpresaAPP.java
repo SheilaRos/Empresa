@@ -1,4 +1,5 @@
 package empresajava;
+import java.util.ArrayList;
 import tools.*;
 public class EmpresaAPP {
     private static ListaCliente misClientes;
@@ -9,7 +10,6 @@ public class EmpresaAPP {
             if(misClientes == null){
 		misClientes = new ListaCliente();
             }
-           
             int opcion=-1;
 		 
 		 do{
@@ -23,13 +23,13 @@ public class EmpresaAPP {
                             nuevoPresupuesto();
 			break;
 			case 3:
-                            presupuestosPorAceptaroRechazar();
+                            presupuestosPor("pendiente");
 			break;
 			case 4:
                             presupuestosClienteX();
 			break;
                         case 5:
-                            presupuestosRechazados();
+                            presupuestosPor("rechazado");
 			break;
                         case 6:
                             listaClientesTotalP();
@@ -160,7 +160,7 @@ public class EmpresaAPP {
     public static String pedirEstado(){
        String estado="";
        do{
-          estado=  pedirCadenaNoVacia("Introduca el estado del presupuesto:");
+          estado=  pedirCadenaNoVacia("Introduca el estado del presupuesto [aceptado, pendiente o rechazado]:");
        }while(!estado.equalsIgnoreCase("aceptado") && !estado.equalsIgnoreCase("rechazado") && !estado.equalsIgnoreCase("pendiente"));
        return estado;
     }
@@ -182,7 +182,7 @@ public class EmpresaAPP {
         int numPresupuesto = numpresupuesto("Introduce el número del presupuesto:");
         String concepto = pedirCadenaNoVacia("Introduce el concepto:");
         String estado = pedirEstado();
-        double precioTotal= pedirDoubleNoVacio("Introduce el precio.");
+        double precioTotal= pedirDoubleNoVacio("Introduce el precio:");
         Presupuesto p = new Presupuesto(numPresupuesto, concepto, precioTotal, estado);
         g.getListaPresupuesto().altaPresupuesto(p);
         miFicheroCliente.grabar(misClientes);
@@ -203,29 +203,16 @@ public class EmpresaAPP {
                return texto;
            }
     }
-    public static void presupuestosPorAceptaroRechazar(){
+    public static void presupuestosPor(String estado){
         boolean vip=false;
         String texto="";
-         Presupuesto p=null;
          for (Cliente c : misClientes.getLista()) {
-            p = c.getListaPresupuesto().obtenerPresupuestoPorEstado("pendiente");
-            if(p!=null){
-                vip=c.isVip();
-                texto=precioDescuentoIVA(vip, p.getPreciototal());
-                System.out.println(c.getNombre()+" "+c.getApellidos()+": "+ p +texto);
-            }
-        }
-     }
-    public static void presupuestosRechazados(){
-         boolean vip=false;
-        String texto="";
-         Presupuesto p=null;
-         for (Cliente c : misClientes.getLista()) {
-            p = c.getListaPresupuesto().obtenerPresupuestoPorEstado("rechazado");
-            if(p!=null){
-                vip=c.isVip();
-                texto=precioDescuentoIVA(vip, p.getPreciototal());
-                System.out.println(c.getNombre()+" "+c.getApellidos()+": "+ p +texto);
+             for(Presupuesto p: c.getListaPresupuesto().getLista()){
+                if(p.getEstado().equalsIgnoreCase(estado)){
+                    vip=c.isVip();
+                    texto=precioDescuentoIVA(vip, p.getPreciototal());
+                    System.out.println(c.getNombre()+" "+c.getApellidos()+": "+ p +texto);
+                }
             }
         }
      }
@@ -233,7 +220,7 @@ public class EmpresaAPP {
         boolean vip=false;
         String texto="";
          for (Cliente c : misClientes.getLista()) {
-             System.out.println(c);
+             System.out.println(c + " Tiene "+c.getListaPresupuesto().getLista().size()+" presupuesto\\s");
              vip=c.isVip();
             for (Presupuesto p: c.getListaPresupuesto().getLista()){
                 texto = precioDescuentoIVA(vip, p.getPreciototal());
@@ -263,7 +250,6 @@ public class EmpresaAPP {
           presupuesto.setEstado(estado);
           miFicheroCliente.grabar(misClientes);
           System.out.println("Presupuesto modificado");
-
         }
     }
     public static void presupuestosClienteX(){
@@ -276,13 +262,14 @@ public class EmpresaAPP {
             System.out.println("No hay ningún cliente con ese teléfono.");
         }else{
             c = misClientes.obtenerClienteTelefono(telefono);
-            System.out.println(c);
             vip = c.isVip();
             for(Presupuesto p: c.getListaPresupuesto().getLista()){
-                texto=precioDescuentoIVA(vip, p.getPreciototal());
-                System.out.println(p+texto);
+               texto=precioDescuentoIVA(vip, p.getPreciototal());
+               System.out.println(c.getNombre()+" "+c.getApellidos()+" : "+p+texto);
             }
-            
+            if(c.getListaPresupuesto().getLista().size()==0){
+                   System.out.println("El cliente "+c.getNombre()+" "+c.getApellidos()+" no tiene todavia presupuestos.");
+            }
         }
     }
 }

@@ -64,7 +64,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        String respuesta = "Cliente " + "Nombre=" + nombre + ", Apellidos=" + apellidos + ", telefono=" + telefono + ", vip= ";
+        String respuesta = "Cliente --> " + "Nombre=" + nombre + ", Apellidos=" + apellidos + ", telefono=" + telefono + ", vip= ";
         if(vip){
             respuesta= respuesta + "es Vip";
         }else{
