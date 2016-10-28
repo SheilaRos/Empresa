@@ -1,5 +1,4 @@
 package empresajava;
-import java.util.ArrayList;
 import tools.*;
 public class EmpresaAPP {
     private static ListaCliente misClientes;
@@ -192,7 +191,7 @@ public class EmpresaAPP {
        String texto="";
        double precioDescuento;
        double precioIVA;
-           if(vip==true){
+           if(vip){
                precioDescuento= precio*0.95;
                precioIVA = precioDescuento*1.21;
                texto=" el precio con descuento es de "+precioDescuento+" y el precio con IVA es de "+precioIVA;
