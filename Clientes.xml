@@ -75,6 +75,95 @@
      </void>
     </object>
    </void>
+   <void method="add">
+    <object class="empresajava.Cliente">
+     <void property="apellidos">
+      <string>mar</string>
+     </void>
+     <void property="listaPresupuesto">
+      <object class="empresajava.ListaPresupuestos" id="ListaPresupuestos2">
+       <void property="lista">
+        <void method="add">
+         <object class="empresajava.Presupuesto">
+          <void property="concepto">
+           <string>asdf</string>
+          </void>
+          <void property="estado">
+           <string>rechazado</string>
+          </void>
+          <void property="numpresupuesto">
+           <int>8</int>
+          </void>
+          <void property="preciototal">
+           <double>300.0</double>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="empresajava.Presupuesto">
+          <void property="concepto">
+           <string>asdf</string>
+          </void>
+          <void property="estado">
+           <string>pendiente</string>
+          </void>
+          <void property="numpresupuesto">
+           <int>55</int>
+          </void>
+          <void property="preciototal">
+           <double>340.0</double>
+          </void>
+         </object>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="nombre">
+      <string>mar</string>
+     </void>
+     <void property="telefono">
+      <int>123456789</int>
+     </void>
+     <void property="vip">
+      <boolean>true</boolean>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="empresajava.Cliente">
+     <void property="apellidos">
+      <string>pepe</string>
+     </void>
+     <void property="listaPresupuesto">
+      <object class="empresajava.ListaPresupuestos" id="ListaPresupuestos3">
+       <void property="lista">
+        <void method="add">
+         <object class="empresajava.Presupuesto">
+          <void property="concepto">
+           <string>e</string>
+          </void>
+          <void property="estado">
+           <string>rechazado</string>
+          </void>
+          <void property="numpresupuesto">
+           <int>34</int>
+          </void>
+          <void property="preciototal">
+           <double>30.0</double>
+          </void>
+         </object>
+        </void>
+       </void>
+      </object>
+     </void>
+     <void property="nombre">
+      <string>pepe</string>
+     </void>
+     <void property="telefono">
+      <int>888888888</int>
+     </void>
+    </object>
+   </void>
   </void>
  </object>
 </java>

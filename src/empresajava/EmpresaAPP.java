@@ -88,8 +88,9 @@ public class EmpresaAPP {
     }
     public static boolean pedirBoolean(){
 	boolean enPropiedad=false;
-	String respuesta=pedirCadenaNoVacia("¿Es vip?[Si/No]");
+	String respuesta;
 	do{
+            respuesta=pedirCadenaNoVacia("¿Es vip?[Si/No]");
             if(respuesta.equalsIgnoreCase("si")){
 		enPropiedad=true;
             }
